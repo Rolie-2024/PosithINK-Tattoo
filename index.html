@@ -1,4 +1,6 @@
-<html lang="hu"><head>
+<!DOCTYPE html>
+<html lang="hu">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PosithINK Tattooshop</title>
@@ -9,6 +11,7 @@
             color: #FFD700;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
         .container {
             width: 100%;
@@ -17,10 +20,24 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .banner {
+        .banner-carousel {
+            position: relative;
             width: 100%;
             height: auto;
-            display: block;
+            overflow: hidden;
+        }
+        .banner-carousel img {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: 0;
+            left: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out, left 1s ease-in-out;
+        }
+        .banner-carousel img.active {
+            left: 0;
+            opacity: 1;
         }
         .section {
             margin-bottom: 50px;
@@ -44,6 +61,11 @@
             margin-bottom: 20px;
             padding: 0 20px;
             box-sizing: border-box;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+        .full-width-image.visible {
+            opacity: 1;
         }
         .description-image {
             display: block;
@@ -63,6 +85,10 @@
             text-align: center;
             text-decoration: none;
             border-radius: 5px;
+            transition: transform 0.3s ease-in-out;
+        }
+        .cta-button:hover {
+            transform: scale(1.1);
         }
         .motto {
             display: flex;
@@ -73,29 +99,40 @@
             padding: 0 20px;
             box-sizing: border-box;
         }
-        .studio-image {
-            width: 100%;
-            height: auto;
-            margin-top: 20px;
-            padding: 0 20px;
-            box-sizing: border-box;
+        #revealButton {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #FFD700;
+            color: #1E1E1E;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #artistSection {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <img src="https://imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner" class="banner">
+    <div class="banner-carousel">
+        <img src="https://imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner 1" class="active">
+        <img src="https://imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Banner 2">
+        <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Banner 3">
+    </div>
     
     <div class="container">
         <section class="section">
             <img src="https://imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Leírás" class="description-image">
-            
         </section>
 
-        
-
         <section class="section">
-            
-            <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
+            <button id="revealButton">Mutasd a művészeket</button>
+            <div id="artistSection">
+                <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
+            </div>
         </section>
 
         <div class="motto">
@@ -104,30 +141,63 @@
             <span>INKED</span>
         </div>
 
-        
-
         <section class="section">
-            
-            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image">
+            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image fade-in">
         </section>
 
-        
-
         <section class="section">
-            
-            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image">
+            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image fade-in">
         </section>
 
-        
-
         <section class="section">
-            
-            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image">
+            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image fade-in">
         </section>
-
-        <img src="https://picsum.photos/800/400" alt="PosithINK Tattooshop Studio" class="studio-image">
     </div>
 
+    <script>
+        // Banner Carousel
+        let currentBanner = 0;
+        const banners = document.querySelectorAll('.banner-carousel img');
 
+        function showNextBanner() {
+            banners[currentBanner].classList.remove('active');
+            currentBanner = (currentBanner + 1) % banners.length;
+            banners[currentBanner].classList.add('active');
+        }
 
-</body></html>
+        setInterval(showNextBanner, 3000); // 3 másodpercenként vált a banner
+
+        // Scroll Animations
+        const fadeInElements = document.querySelectorAll('.full-width-image');
+
+        function handleScroll() {
+            fadeInElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Reveal Artists Section
+        document.getElementById('revealButton').addEventListener('click', function() {
+            const artistSection = document.getElementById('artistSection');
+            artistSection.style.display = 'block';
+            this.style.display = 'none';
+        });
+
+        // Smooth Scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
