@@ -31,13 +31,13 @@
             width: 100%;
             height: auto;
             top: 0;
-            left: 100%;
+            left: 0; /* Az első kép megjelenítéséhez szükséges */
             opacity: 0;
             transition: opacity 1s ease-in-out, left 1s ease-in-out;
         }
         .banner-carousel img.active {
-            left: 0;
             opacity: 1;
+            z-index: 1;
         }
         .section {
             margin-bottom: 50px;
