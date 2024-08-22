@@ -20,23 +20,10 @@
             padding: 0;
             box-sizing: border-box;
         }
-        .banner-carousel {
-            position: relative;
+        .banner {
             width: 100%;
             height: auto;
-            overflow: hidden;
-        }
-        .banner-carousel img {
-            position: absolute;
-            width: 100%;
-            height: auto;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 1s ease-in-out;
-        }
-        .banner-carousel img.active {
-            opacity: 1;
+            display: block;
         }
         .section {
             margin-bottom: 50px;
@@ -116,21 +103,17 @@
     </style>
 </head>
 <body>
-    <div class="banner-carousel">
-        <img src="https://i.imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner 1" class="active">
-        <img src="https://i.imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Banner 2">
-        <img src="https://i.imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Banner 3">
-    </div>
+    <img src="https://imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner" class="banner">
     
     <div class="container">
         <section class="section">
-            <img src="https://i.imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Leírás" class="description-image">
+            <img src="https://imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Leírás" class="description-image">
         </section>
 
         <section class="section">
             <button id="revealButton">Mutasd a művészeket</button>
             <div id="artistSection">
-                <img src="https://i.imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
+                <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
             </div>
         </section>
 
@@ -141,31 +124,19 @@
         </div>
 
         <section class="section">
-            <img src="https://i.imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image fade-in">
+            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image fade-in">
         </section>
 
         <section class="section">
-            <img src="https://i.imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image fade-in">
+            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image fade-in">
         </section>
 
         <section class="section">
-            <img src="https://i.imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image fade-in">
+            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image fade-in">
         </section>
     </div>
 
     <script>
-        // Banner Carousel
-        let currentBanner = 0;
-        const banners = document.querySelectorAll('.banner-carousel img');
-
-        function showNextBanner() {
-            banners[currentBanner].classList.remove('active');
-            currentBanner = (currentBanner + 1) % banners.length;
-            banners[currentBanner].classList.add('active');
-        }
-
-        setInterval(showNextBanner, 3000); // 3 másodpercenként vált a banner
-
         // Scroll Animations
         const fadeInElements = document.querySelectorAll('.full-width-image');
 
