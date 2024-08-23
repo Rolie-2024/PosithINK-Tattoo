@@ -48,10 +48,12 @@
             padding: 0 20px;
             box-sizing: border-box;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
+            transform: translateX(-100%);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
         .full-width-image.visible {
             opacity: 1;
+            transform: translateX(0);
         }
         .description-image {
             display: block;
@@ -84,6 +86,22 @@
             margin: 20px 0;
             padding: 0 20px;
             box-sizing: border-box;
+            overflow: hidden;
+        }
+        .motto span {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        .motto.visible span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .motto span:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+        .motto span:nth-child(3) {
+            transition-delay: 0.6s;
         }
         #revealButton {
             display: block;
@@ -96,9 +114,20 @@
             text-decoration: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        #revealButton:hover {
+            background-color: #FFA500;
         }
         #artistSection {
             display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        #artistSection.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
 </head>
@@ -124,37 +153,41 @@
         </div>
 
         <section class="section">
-            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image fade-in">
+            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image">
         </section>
 
         <section class="section">
-            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image fade-in">
+            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image">
         </section>
 
         <section class="section">
-            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image fade-in">
+            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image">
         </section>
     </div>
 
     <script>
         // Scroll Animations
-        const fadeInElements = document.querySelectorAll('.full-width-image');
+        const fadeInElements = document.querySelectorAll('.full-width-image, .motto');
 
         function handleScroll() {
             fadeInElements.forEach(el => {
                 const rect = el.getBoundingClientRect();
-                if (rect.top < window.innerHeight) {
+                if (rect.top < window.innerHeight - 100) {
                     el.classList.add('visible');
                 }
             });
         }
 
         window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
 
         // Reveal Artists Section
         document.getElementById('revealButton').addEventListener('click', function() {
             const artistSection = document.getElementById('artistSection');
             artistSection.style.display = 'block';
+            setTimeout(() => {
+                artistSection.classList.add('visible');
+            }, 50);
             this.style.display = 'none';
         });
 
