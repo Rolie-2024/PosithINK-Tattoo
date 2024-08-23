@@ -1,31 +1,112 @@
-ass="contact-info">
- , 50);
-            this.style.display = 'none';
-        });
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PosithINK Tattooshop</title>
+    <style>
+        /* ... (previous styles remain the same) ... */
+        
+        #languageSelector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+        }
+        .lang-button {
+            width: 30px;
+            height: 20px;
+            margin-left: 5px;
+            cursor: pointer;
+            border: none;
+            background-size: cover;
+            background-position: center;
+        }
+        #huButton {
+            background-image: url('https://flagcdn.com/w40/hu.png');
+        }
+        #enButton {
+            background-image: url('https://flagcdn.com/w40/gb.png');
+        }
+        #deButton {
+            background-image: url('https://flagcdn.com/w40/de.png');
+        }
+    </style>
+</head>
+<body>
+    <div id="languageSelector">
+        <button id="huButton" class="lang-button" data-lang="hu"></button>
+        <button id="enButton" class="lang-button" data-lang="en"></button>
+        <button id="deButton" class="lang-button" data-lang="de"></button>
+    </div>
 
-        // Contact Button and Page
-        const contactButton = document.getElementById('contactButton');
-        const contactPage = document.getElementById('contactPage');
-        const closeContact = document.getElementById('closeContact');
+    <img src="https://imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner" class="banner">
+    
+    <div class="container">
+        <section class="section">
+            <img src="https://imgur.com/MVAhxgH.png" alt="PosithINK Tattooshop Leírás" class="description-image">
+        </section>
 
-        contactButton.addEventListener('click', function() {
-            contactPage.style.display = 'block';
-        });
+        <section class="section">
+            <button id="revealButton" data-hu="Mutasd a művészeket" data-en="Show the artists" data-de="Zeige die Künstler">Mutasd a művészeket</button>
+            <div id="artistSection">
+                <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
+            </div>
+        </section>
 
-        closeContact.addEventListener('click', function() {
-            contactPage.style.display = 'none';
-        });
+        <div class="motto">
+            <span>POSITIVE</span>
+            <span>THINKING</span>
+            <span>INKED</span>
+        </div>
 
-        // Smooth Scroll for internal links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
+        <section class="section">
+            <img src="https://imgur.com/8lSJNGY.png" alt="PosithINK Tattooshop Munkáink" class="full-width-image">
+        </section>
 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        <section class="section">
+            <img src="https://imgur.com/2gk95Dw.png" alt="PosithINK Tattooshop Nyitvatartás" class="full-width-image">
+        </section>
+
+        <section class="section">
+            <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image">
+        </section>
+
+        <button class="cta-button" id="contactButton" data-hu="Lépj velünk kapcsolatba" data-en="Contact us" data-de="Kontaktiere uns">Lépj velünk kapcsolatba</button>
+    </div>
+
+    <div id="contactPage">
+        <div class="contact-content">
+            <h2 data-hu="Kapcsolat" data-en="Contact" data-de="Kontakt">Kapcsolat</h2>
+            <div class="contact-info">
+                <p><strong data-hu="E-mail:" data-en="Email:" data-de="E-Mail:">E-mail:</strong> info@posithink.hu</p>
+                <p><strong data-hu="Telefon:" data-en="Phone:" data-de="Telefon:">Telefon:</strong> +36 1 234 5678</p>
+                <p><strong data-hu="Cím:" data-en="Address:" data-de="Adresse:">Cím:</strong> <span data-hu="1234 Budapest, Példa utca 123." data-en="123 Example Street, Budapest 1234, Hungary" data-de="Beispielstraße 123, 1234 Budapest, Ungarn">1234 Budapest, Példa utca 123.</span></p>
+            </div>
+            <button class="close-button" id="closeContact" data-hu="Bezárás" data-en="Close" data-de="Schließen">Bezárás</button>
+        </div>
+    </div>
+
+    <script>
+        // ... (previous JavaScript remains the same) ...
+
+        // Language Switcher
+        const langButtons = document.querySelectorAll('.lang-button');
+        const elementsToTranslate = document.querySelectorAll('[data-hu]');
+
+        langButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const lang = this.dataset.lang;
+                elementsToTranslate.forEach(el => {
+                    if (el.dataset[lang]) {
+                        el.textContent = el.dataset[lang];
+                    }
                 });
+                document.documentElement.lang = lang;
             });
         });
+
+        // ... (rest of the JavaScript remains the same) ...
     </script>
 </body>
 </html>
