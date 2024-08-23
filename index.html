@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>PosithINK Tattooshop</title>
     <style>
         /* ... (previous styles remain the same) ... */
-        
+
         #languageSelector {
             position: fixed;
             top: 20px;
@@ -88,7 +88,54 @@
     </div>
 
     <script>
-        // ... (previous JavaScript remains the same) ...
+        // Scroll Animations
+        const fadeInElements = document.querySelectorAll('.full-width-image, .motto');
+
+        function handleScroll() {
+            fadeInElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScroll);
+        window.addEventListener('load', handleScroll);
+
+        // Reveal Artists Section
+        document.getElementById('revealButton').addEventListener('click', function() {
+            const artistSection = document.getElementById('artistSection');
+            artistSection.style.display = 'block';
+            setTimeout(() => {
+                artistSection.classList.add('visible');
+            }, 50);
+            this.style.display = 'none';
+        });
+
+        // Contact Button and Page
+        const contactButton = document.getElementById('contactButton');
+        const contactPage = document.getElementById('contactPage');
+        const closeContact = document.getElementById('closeContact');
+
+        contactButton.addEventListener('click', function() {
+            contactPage.style.display = 'block';
+        });
+
+        closeContact.addEventListener('click', function() {
+            contactPage.style.display = 'none';
+        });
+
+        // Smooth Scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
 
         // Language Switcher
         const langButtons = document.querySelectorAll('.lang-button');
@@ -105,8 +152,6 @@
                 document.documentElement.lang = lang;
             });
         });
-
-        // ... (rest of the JavaScript remains the same) ...
     </script>
 </body>
 </html>
