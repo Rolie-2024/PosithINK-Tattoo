@@ -1,45 +1,192 @@
- <!DOCTYPE html>
+!DOCTYPE html>
 <html lang="hu">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PosithINK Tattooshop</title>
     <style>
-        /* ... (previous styles remain the same) ... */
-
-        #languageSelector {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1001;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1E1E1E;
+            color: #FFD700;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
         }
-        .lang-button {
-            width: 30px;
+        .container {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .banner {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .section {
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+        .divider {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUAAAAA');
             height: 20px;
-            margin-left: 5px;
-            cursor: pointer;
-            border: none;
-            background-size: cover;
+            background-repeat: no-repeat;
             background-position: center;
+            margin: 20px 0;
         }
-        #huButton {
-            background-image: url('https://flagcdn.com/w40/hu.png');
+        h2 {
+            text-align: center;
+            color: #FFD700;
+            padding: 0 20px;
         }
-        #enButton {
-            background-image: url('https://flagcdn.com/w40/gb.png');
+        .full-width-image {
+            width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            padding: 0 20px;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
         }
-        #deButton {
-            background-image: url('https://flagcdn.com/w40/de.png');
+        .full-width-image.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .description-image {
+            display: block;
+            width: 100%;
+            height: auto;
+            margin: 20px auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+        .cta-button {
+            display: block;
+            width: 250px;
+            margin: 20px auto;
+            padding: 15px;
+            background-color: #FFD700;
+            color: #1E1E1E;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            cursor: pointer;
+        }
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+        .cta-button:active {
+            transform: scale(0.95);
+        }
+        .motto {
+            display: flex;
+            justify-content: space-between;
+            font-size: 24px;
+            color: #FF69B4;
+            margin: 20px 0;
+            padding: 0 20px;
+            box-sizing: border-box;
+            overflow: hidden;
+        }
+        .motto span {
+            opacity: 0;
+            transform: translateX(-100%);
+            transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+        }
+        .motto.visible span {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .motto span:nth-child(2) {
+            transition-delay: 0.3s;
+        }
+        .motto span:nth-child(3) {
+            transition-delay: 0.6s;
+        }
+        #revealButton {
+            display: block;
+            width: 200px;
+            margin: 20px auto;
+            padding: 10px;
+            background-color: #FFD700;
+            color: #1E1E1E;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        #revealButton:hover {
+            background-color: #FFA500;
+        }
+        #artistSection {
+            display: none;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        #artistSection.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #contactPage {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(30, 30, 30, 0.95);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+        .contact-content {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #2E2E2E;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+        .contact-content h2 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .contact-info {
+            color: #FFFFFF;
+            font-size: 18px;
+            line-height: 1.6;
+        }
+        .contact-info p {
+            margin-bottom: 15px;
+        }
+        .close-button {
+            display: block;
+            width: 100px;
+            margin: 20px auto 0;
+            padding: 10px;
+            background-color: #FFD700;
+            color: #1E1E1E;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out;
+        }
+        .close-button:hover {
+            background-color: #FFA500;
         }
     </style>
 </head>
 <body>
-    <div id="languageSelector">
-        <button id="huButton" class="lang-button" data-lang="hu"></button>
-        <button id="enButton" class="lang-button" data-lang="en"></button>
-        <button id="deButton" class="lang-button" data-lang="de"></button>
-    </div>
-
     <img src="https://imgur.com/h7BTgeq.png" alt="PosithINK Tattooshop Banner" class="banner">
     
     <div class="container">
@@ -48,7 +195,7 @@
         </section>
 
         <section class="section">
-            <button id="revealButton" data-hu="Mutasd a művészeket" data-en="Show the artists" data-de="Zeige die Künstler">Mutasd a művészeket</button>
+            <button id="revealButton">Mutasd a művészeket</button>
             <div id="artistSection">
                 <img src="https://imgur.com/inhhBpC.png" alt="PosithINK Tattooshop Művészek" class="full-width-image">
             </div>
@@ -72,18 +219,18 @@
             <img src="https://imgur.com/Rm0Uq7z.png" alt="PosithINK Tattooshop Happy Clients" class="full-width-image">
         </section>
 
-        <button class="cta-button" id="contactButton" data-hu="Lépj velünk kapcsolatba" data-en="Contact us" data-de="Kontaktiere uns">Lépj velünk kapcsolatba</button>
+        <button class="cta-button" id="contactButton">Lépj velünk kapcsolatba</button>
     </div>
 
     <div id="contactPage">
         <div class="contact-content">
-            <h2 data-hu="Kapcsolat" data-en="Contact" data-de="Kontakt">Kapcsolat</h2>
+            <h2>Kapcsolat</h2>
             <div class="contact-info">
-                <p><strong data-hu="E-mail:" data-en="Email:" data-de="E-Mail:">E-mail:</strong> info@posithink.hu</p>
-                <p><strong data-hu="Telefon:" data-en="Phone:" data-de="Telefon:">Telefon:</strong> +36 1 234 5678</p>
-                <p><strong data-hu="Cím:" data-en="Address:" data-de="Adresse:">Cím:</strong> <span data-hu="1234 Budapest, Példa utca 123." data-en="123 Example Street, Budapest 1234, Hungary" data-de="Beispielstraße 123, 1234 Budapest, Ungarn">1234 Budapest, Példa utca 123.</span></p>
+                <p><strong>E-mail:</strong> info@posithink.hu</p>
+                <p><strong>Telefon:</strong> +36 1 234 5678</p>
+                <p><strong>Cím:</strong> 1234 Budapest, Példa utca 123.</p>
             </div>
-            <button class="close-button" id="closeContact" data-hu="Bezárás" data-en="Close" data-de="Schließen">Bezárás</button>
+            <button class="close-button" id="closeContact">Bezárás</button>
         </div>
     </div>
 
@@ -134,22 +281,6 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-            });
-        });
-
-        // Language Switcher
-        const langButtons = document.querySelectorAll('.lang-button');
-        const elementsToTranslate = document.querySelectorAll('[data-hu]');
-
-        langButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const lang = this.dataset.lang;
-                elementsToTranslate.forEach(el => {
-                    if (el.dataset[lang]) {
-                        el.textContent = el.dataset[lang];
-                    }
-                });
-                document.documentElement.lang = lang;
             });
         });
     </script>
